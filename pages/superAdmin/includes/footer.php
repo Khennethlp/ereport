@@ -17,6 +17,7 @@
 </footer>
 
 <?php
+include '../../modals/logout_modal.php';
 include '../../modals/remove.php';
 include '../../modals/update_admin.php';
 ?>

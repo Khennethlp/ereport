@@ -52,12 +52,13 @@
                             </a>
                 </li>
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="index.php" class="nav-link b-border">
                         <i class="nav-icon fas fa-sign-out-alt text-dark "></i>
                         <p class="text">Sign out</p>
                     </a>
-                </li>
+                </li> -->
+                <?php include 'logout.php' ?>
             </ul>
         </nav>
     </div>
