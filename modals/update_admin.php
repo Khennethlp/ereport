@@ -153,7 +153,8 @@
             </div>
             <div class="modal-footer ">
                 <div class="col-sm-3">
-                    <button class="btn btn-block" class="close" data-dismiss="modal" aria-label="Close" style="background: var(--danger) !important;color:#fff;height:34px;border-radius:.25rem;font-size:15px;font-weight:normal; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);">Cancel</button>
+                    <!-- <button class="btn btn-block" class="close" data-dismiss="modal" aria-label="Close" style="background: var(--danger) !important;color:#fff;height:34px;border-radius:.25rem;font-size:15px;font-weight:normal; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);">Cancel</button> -->
+                    <button class="btn btn-block" onclick="remove_data();" style="background: var(--danger) !important;color:#fff;height:34px;border-radius:.25rem;font-size:15px;font-weight:normal; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);">Delete</button>
                 </div>
                 <div class="col-sm-3">
                     <button class="btn btn-block" onclick="update_admin();" style="background: #3765AA !important;color:#fff;height:34px;border-radius:.25rem;font-size:15px;font-weight:normal; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);">Update</button>
