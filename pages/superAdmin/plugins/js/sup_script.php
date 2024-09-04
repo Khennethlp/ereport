@@ -189,7 +189,7 @@
             },
             success: function(response) {
                 $('#total_count').html(response);
-
+                load_data();
             }
         });
     }
