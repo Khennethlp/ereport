@@ -1,20 +1,18 @@
 <?php
-session_start();
+// session_start();
 
 if (isset($_POST['logout'])) {
-    // Unset all session variables
-    $_SESSION = array();
-
+    session_unset();
     // Destroy the session
     session_destroy();
 
     // Redirect to the login page or homepage
-    header("Location: index.php");
+    header("Location: /e-report/pages/superAdmin/index.php");
     exit();
 }
 ?>
 <li class="nav-item">
-    <form action="" method="post">
+    <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <button type="submit" name="logout" class="nav-link b-border" style="background: none; border: none; padding: 0; margin: 0;">
           <i class="nav-icon fas fa-sign-out-alt"></i>
           <p class="text">Sign out</p>

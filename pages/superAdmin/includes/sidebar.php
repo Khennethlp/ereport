@@ -40,6 +40,18 @@
                             </a>
                 </li>
                 <li class="nav-item">
+                    <?php if ($_SERVER['REQUEST_URI'] == "/e-report/pages/superAdmin/uploads.php") { ?>
+                        <a href="uploads.php" class="nav-link active">
+                        <?php } else { ?>
+                            <a href="uploads.php" class="nav-link">
+                            <?php } ?>
+                            <i class="nav-icon fa fa-upload"></i>
+                            <p>
+                                All Uploads
+                            </p>
+                            </a>
+                </li>
+                <li class="nav-item">
                     <?php if ($_SERVER['REQUEST_URI'] == "/e-report/pages/superAdmin/settings.php") { ?>
                         <a href="settings.php" class="nav-link active">
                         <?php } else { ?>

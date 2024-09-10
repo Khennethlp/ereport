@@ -1,6 +1,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     load_data();
+    load_all_data();
     counts();
   })
 
@@ -11,6 +12,24 @@
     $.ajax({
       type: "POST",
       url: "../../process/superAdmin/load_data.php",
+      data: {
+        method: 'getData_masterlist',
+        sortBy: sortBy,
+        serialNo: serialNo
+      },
+      success: function(response) {
+        document.getElementById('load_table').innerHTML = response;
+      }
+    });
+  }
+
+  const load_all_data = () => {
+    var sortBy = document.getElementById('sortBy').value;
+    var serialNo = document.getElementById('search_by_serialNo').value;
+
+    $.ajax({
+      type: "POST",
+      url: "../../process/superAdmin/all_uploads.php",
       data: {
         method: 'getData_masterlist',
         sortBy: sortBy,
