@@ -208,11 +208,11 @@ if ($method == 'load_data') {
             $filename = !empty($k['updated_file']) ? $k['updated_file'] : $k['file_name'];
             $filenames = $k['file_name'];
 
-            $data .= '<tr style="' . $status_bg_color . ' ">';
+            $data .= '<tr style="' . $status_bg_color . ' cursor: pointer;" data-toggle="modal" data-target="#update_upload" onclick="getUpdateData(&quot;' . $k['id'] . '~!~' . $k['serial_no'] . '~!~' . $filenames . '~!~' . $status_text . '~!~' . $k['batch_no'] . '~!~' . $k['group_no'] . '~!~' . $k['upload_month'] . '~!~' . $k['upload_year'] . '~!~' . $k['main_doc'] . '~!~' . $k['training_group'] . '&quot;);">';
             $data .= '<td>' . $c . '</td>';
             // $data .= '<td><i class="fas fa-trash" style="color:var(--danger); font-size: 12px; cursor:pointer;"></i></td>';
             $data .= '<td ><span>' . $status_text . '</span></td>';
-            $data .= '<td>' . htmlspecialchars($k['serial_no']) . '</td>';
+            $data .= '<td >' . htmlspecialchars($k['serial_no']) . '</td>';
             $data .= '<td>' . htmlspecialchars($k['batch_no']) . '</td>';
             $data .= '<td>' . htmlspecialchars($k['group_no']) . '</td>';
             $data .= '<td>' . htmlspecialchars($k['upload_month']) . '</td>';

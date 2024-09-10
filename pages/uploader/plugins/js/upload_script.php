@@ -349,4 +349,80 @@
         }
 
     };
+
+    const getUpdateData = param => {
+        var data = param.split('~!~');
+        var id = data[0];
+        var serialNo = data[1];
+        var filename = data[2];
+        var status = data[3];
+        var batchNo = data[4];
+        var groupNo = data[5];
+        var month = data[6];
+        var year = data[7];
+        var docs = data[8];
+        var tgroup = data[9];
+
+        console.log(param);
+        $('#update_id').val(id);
+        $('#update_status').val(status);
+        $('#update_serialNo').val(serialNo);
+        $('#update_batchNo').val(batchNo);
+        $('#update_groupNo').val(groupNo);
+        $('#update_month').val(month);
+        $('#update_year').val(year);
+        $('#update_docs').val(docs);
+        $('#update_tgroup').val(tgroup);
+        $('#update_filename').val(filename);
+    }
+
+    const update_upload_pending = () => {
+        var id = document.getElementById('update_id').value;
+        var status = document.getElementById('update_status').value;
+        var serialNo = document.getElementById('update_serialNo').value;
+        var batchNo = document.getElementById('update_batchNo').value;
+        var groupNo = document.getElementById('update_groupNo').value;
+        var month = document.getElementById('update_month').value;
+        var year = document.getElementById('update_year').value;
+        var docs = document.getElementById('update_docs').value;
+        var training_group = document.getElementById('update_tgroup').value;
+        var filename = document.getElementById('update_filename').value;
+
+        $.ajax({
+            type: "POST",
+            url: "../../process/uploader/update_upload.php",
+            data: {
+                method: 'update_uploads',
+                id: id,
+                status: status,
+                serialNo: serialNo,
+                batchNo: batchNo,
+                groupNo: groupNo,
+                month: month,
+                year: year,
+                docs: docs,
+                training_group: training_group,
+                filename: filename
+            },
+            success: function(response) {
+                if(response == 'success'){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Updated Successfully.',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                    load_data();
+                    $('#update_upload').modal('hide');
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Something went wrong..',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            }
+        });
+    }
 </script>
