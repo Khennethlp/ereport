@@ -1,142 +1,226 @@
-<?php require 'process/login.php';
-
-if (isset($_SESSION['username'])) {
-  if ($_SESSION['role'] == 'admin') {
-    header('location: pages/admin/index.php');
-    exit;
-  } elseif ($_SESSION['role'] == 'approver') {
-    header('location: pages/approver/index.php');
-    exit;
-  } elseif ($_SESSION['role'] == 'uploader') {
-    header('location: pages/uploader/index.php');
-    exit;
-  } elseif ($_SESSION['role'] == 'checker') {
-    header('location: pages/checker/index.php');
-    exit;
-  }
-}
-?>
+<?php require 'process/login.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= $title; ?></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?= $title; ?></title>
 
-  <link rel="icon" href="dist/img/e-report-icon.png" type="image/x-icon" />
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="dist/css/font.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="icon" href="dist/img/e-report-icon.png" type="image/x-icon" />
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="dist/css/font.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 <!-- background-color: #306BAC; -->
-<body class="hold-transition login-page" 
-style="
-background-image: url('dist/img/web-bg.png');
-background-size: cover;
-background-repeat: no-repeat;
-">
-<!-- style="transform: translate(50%, 0);" -->
-  <div class="login-box" >
-    <div class="col-md-12">
-      <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'error') { ?>
-        <div class="alert alert-dismissible fade show" style="background-color: #C3423F; color: #fff; " role="alert">
-          <strong>Oops!</strong> <?php echo $_SESSION['msg']; ?>
-          <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      <?php }
-      unset($_SESSION['status']); ?>
+
+<body>
+    <div class="container-fluid">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="col-md-12">
+                    <div class="row mb-2">
+                        <div class="col-md-9">
+                            <div class="flex-column justify-content-center align-items-center">
+                                <img src="dist/img/e-report-bg.png" alt="logo" class="logo" height="65" width="65">
+                                <span class="h2 logo-text">E-REPORT</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-3 mt-3 float-right">
+                                <a href="login.php" class="btn btn-info" style="background: #275DAD;">LOGIN</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="col-md-12 m-0 p-0">
+                <div class="card" style="border-top: 2px solid #1e96fc;">
+                    <div class="card-header">
+                        <h3 class="card-title"><img src="dist/img/table.png" height="35" width="35">&ensp;VIEWER TABLE</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2 mb-2">
+                                <label for="">Search By Serial No:</label>
+                                <input type="search" class="form-control" name="" id="search_by_serialNo" placeholder="">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label for="">Search By Batch No:</label>
+                                <input type="search" class="form-control" name="" id="search_by_batchNo" placeholder="">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label for="">Search By Group No:</label>
+                                <input type="search" class="form-control" id="search_by_groupNo">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label for="">Search By Training Group:</label>
+                                <!-- <input type="search" class="form-control" name="" id="search_by_tgroup" placeholder=""> -->
+                                <select class="form-control" name="search_by_tgroup" id="search_by_tgroup">
+                                    <option value=""></option>
+                                    <?php
+                                    require 'process/conn.php';
+
+                                    $sql = "SELECT DISTINCT training_title FROM t_training_group";
+                                    $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+                                    $stmt->execute();
+
+                                    if ($stmt->rowCount() > 0) {
+                                        // Output data of each row
+                                        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                        // Output data of each row
+                                        foreach ($rows as $row) {
+                                            echo '<option value="' . $row["training_title"] . '">' . $row["training_title"] . '</option>';
+                                        }
+                                    } else {
+                                        echo '<option value="">No data available</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label for="">Search By Document:</label>
+                                <!-- <input type="search" class="form-control" name="" id="search_by_docs" placeholder=""> -->
+                                <select class="form-control" name="search_by_docs" id="search_by_docs">
+                                    <option value="" selected></option>
+                                    <?php
+                                    require 'process/conn.php';
+
+                                    $sql = "SELECT DISTINCT main_doc FROM m_report_title";
+                                    $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+                                    $stmt->execute();
+
+                                    if ($stmt->rowCount() > 0) {
+                                        // Output data of each row
+                                        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                        // Output data of each row
+                                        foreach ($rows as $row) {
+                                            echo '<option value="' . $row["main_doc"] . '">' . $row["main_doc"] . '</option>';
+                                        }
+                                    } else {
+                                        echo '<option value="">No data available</option>';
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label for="">Search By Filename:</label>
+                                <input type="search" class="form-control" name="" id="search_by_filename" placeholder="">
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <!-- <label for="">From:</label> -->
+                                <!-- <input type="date" class="form-control" name="" id="search_by_date_from"> -->
+                                <label for="">Month:</label>
+                                <!-- <input type="date" id="search_date_from" class="form-control"> -->
+                                <select name="search_by_date_from" id="search_by_month" class="form-control">
+                                    <option value=""></option>
+                                    <option value="January">JANUARY</option>
+                                    <option value="February">FEBRUARY</option>
+                                    <option value="March">MARCH</option>
+                                    <option value="April">APRIL</option>
+                                    <option value="May">MAY</option>
+                                    <option value="June">JUNE</option>
+                                    <option value="July">JULY</option>
+                                    <option value="August">AUGUST</option>
+                                    <option value="September">SEPTEMBER</option>
+                                    <option value="October">OCTOBER</option>
+                                    <option value="November">NOVEMBER</option>
+                                    <option value="December">DECEMBER</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label for="">Year:</label>
+                                <!-- <input type="date" class="form-control" name="" id="search_by_date_to"> -->
+                                <select name="search_by_date_to" id="search_by_year" class="form-control">
+                                    <option value=""></option>
+                                    <?php
+                                    $currentYear = date('Y');
+                                    for ($i = $currentYear; $i <= $currentYear + 10; $i++) {
+                                        echo '<option value="' . $i . '">' . $i . '</option>';
+                                    }
+                                    // ' . ($i == $currentYear ? ' selected' : '') . '
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-2 mb-2">
+                                <label for="">&nbsp;</label>
+                                <button class="form-control" style="background: #275DAD; color: #fff;" onclick="load_data(); counts();">
+                                    <i class="fas fa-search"></i>&nbsp;
+                                    Search
+                                </button>
+                            </div>
+
+                            <!-- FOR WORK INSTRUCTION -->
+                            <!-- <div class="col-md-2 mb-2">
+                                <label for="">&nbsp;</label>
+                                <a href="" class="form-control bg-danger text-center"><i class="fas fa-download"></i>&nbsp; Work Instruction</a>
+                            </div> -->
+                        </div>
+                        <br>
+                        <div class="col-12">
+                            <div class="card-body table-responsive p-0" style="height: 550px;">
+                                <table class="table table-head-fixed text-nowrap" id="employee_data">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Serial No.</th>
+                                            <th>Batch No.</th>
+                                            <th>Group No.</th>
+                                            <th>Month</th>
+                                            <th>Year</th>
+                                            <th>Document</th>
+                                            <th>Training Group</th>
+                                            <th>Filename</th>
+                                            <th>Checked By</th>
+                                            <th>Checked Date</th>
+                                            <th>Approved By</th>
+                                            <th>Approved Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin_dashboard_table"></tbody>
+                                </table>
+                            </div>
+                            <div id="load_more" class="text-center" style="display: none;">
+                                <p class="badge badge-dark border border-outline px-4 py-3 mt-3 " style="cursor: pointer;">Load More...</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mt-4">
+                            <div class="row">
+                                <span id="approved_count" class="text-bold"></span>
+                            </div>
+                        </div>
+                    </div>
+        </section>
     </div>
-    <!-- /.login-logo -->
-    <div class="card p-3" style="box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.5);">
-      <div class="login-logo">
-        <img src="dist/img/e-report-bg.png" style="height:200px; width: auto;">
-        <!-- <h2><b>Template ni Khenneth</b></h2> -->
-      </div>
-      <div class="card-body login-card-body rounded">
-        <!-- <p class="login-box-msg"><b>Sign in to start your session</b></p> -->
 
-        <form action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="login_form">
-        <!-- <form action="../plugins/login.php" method="POST" id="login_form"> -->
-          <div class="form-group">
-            <div class="input-group">
-              <!-- <input type="text" > -->
-              <select class="form-control" id="users" name="users" autocomplete="off" required>
-                <option disabled selected>--- Choose User ---</option>
-                <option value="Admin">Admin</option>
-                <option value="Approver">Approver</option>
-                <option value="Checker">Checker</option>
-                <option value="Uploader">Uploader</option>
-              </select>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-users"></span>
-                </div>
-              </div>
+    <div style="text-align: center;">
+        <footer class="content-fluid">
+            <strong>Copyright &copy; 2024. Khenneth Puerto </strong>
+            All rights reserved.
+            <div class=" d-none d-sm-inline-block">
+                <b>Version</b> 1.0.0
             </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" autofocus required>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="input-group">
-              <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" required>
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col">
-              <button type="submit" class="btn btn-block" name="Login" style="background-color: #306BAC; color: #fff;">Login</button>
-            </div>
-          </div>
-          <!-- <div class="row mb-2">
-            <div class="col">
-              <a type="button" href="pages/viewer/index.php" class="btn bg-danger btn-block" id="wi">Viewer Page</a>
-            </div>
-          </div> -->
-          <div class="row">
-            <!-- <div class="col">
-              <center style="color: #ccc; font-size: 12px;">
-               <em> MADE WITH &nbsp;🍔&nbsp;  BY KHENNETH </em> 
-              </center>
-            </div> -->
-          </div>
-        </form>
-      </div>
+        </footer>
     </div>
-  </div>
-</body>
 
-<!-- jQuery -->
-<script src="plugins/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-
-<noscript>
-  <br>
-  <span>We are facing <strong>Script</strong> issues. Kindly enable <strong>JavaScript</strong>!!!</span>
-  <br>
-  <span>Call IT Personnel Immediately!!! They will fix it right away.</span>
-</noscript>
+    <?php include 'index_script.php'; ?>
+    <!-- jQuery -->
+    <script src="plugins/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/adminlte.min.js"></script>
 
 </body>
 

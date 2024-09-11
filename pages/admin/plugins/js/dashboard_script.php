@@ -175,4 +175,97 @@
             }
         });
     }
+
+    const export_csv = (table_id, separator = ',') => {
+    // Select rows from table_id
+    var rows = document.querySelectorAll('table#' + table_id + ' tr');
+    // Construct csv
+    var csv = [];
+    for (var i = 0; i < rows.length; i++) {
+      var row = [],
+        cols = rows[i].querySelectorAll('td, th');
+      for (var j = 0; j < cols.length; j++) {
+        var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+        data = data.replace(/"/g, '""');
+        // Push escaped string
+        row.push('"' + data + '"');
+      }
+      csv.push(row.join(separator));
+    }
+    var csv_string = csv.join('\n');
+    // Download it
+    var filename = 'EREPORT' + '_' + new Date().toLocaleDateString() + '.csv';
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csv_string));
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  const del_data = (param) => {
+    var data = param.split('~!~');
+    var id = data[0];
+    var serial_no = data[1];
+    console.log(param);
+  }
+
+  const remove_data = () => {
+    var id = document.getElementById('update_id').value;
+    var serialNo = document.getElementById('update_serial_no').value;
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          type: "POST",
+          url: "../../process/superAdmin/load_data.php",
+          data: {
+            method: 'remove_data',
+            id: id,
+            serialNo: serialNo,
+          },
+          success: function(response) {
+            if (response == 'success') {
+              Swal.fire({
+                icon: 'success',
+                title: 'Deleted successfully!',
+                showConfirmButton: false,
+                timer: 1000
+              });
+
+              load_data();
+              $('#update_admin').modal('hide');
+            } else if (response == 'error') {
+              Swal.fire({
+                icon: 'error',
+                title: 'Failed to delete.',
+                showConfirmButton: false,
+                timer: 1000
+              });
+
+              load_data();
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Something went wrong.',
+                showConfirmButton: false,
+                timer: 1000
+              });
+            }
+          }
+        });
+      }
+    });
+  }
+
 </script>

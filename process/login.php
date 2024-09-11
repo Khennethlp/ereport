@@ -29,12 +29,14 @@ if (isset($_POST['Login'])) {
             $role = $result['role'];
             $emp_id = $result['emp_id'];
             $email = $result['email'];
+            // $sid = $result['secret_id'];
 
             // Set session variables
             $_SESSION['username'] = $username;
             $_SESSION['emp_id'] = $emp_id;
             $_SESSION['email'] = $email;
             $_SESSION['name'] = $name;
+            // $_SESSION['sid'] = $sid;
             $_SESSION['role'] = $role; // Set the role from the database
 
             // Check if the role from the database matches the selected user role
@@ -55,25 +57,25 @@ if (isset($_POST['Login'])) {
                     default:
                         $_SESSION['status'] = 'error';
                         $_SESSION['msg'] = 'Invalid role.';
-                        header('Location: index.php');
+                        header('Location: login.php');
                         exit;
                 }
             } else {
                 $_SESSION['status'] = 'error';
                 $_SESSION['msg'] = 'Role mismatch.';
-                header('Location: index.php'); // Redirect to login page
+                header('Location: login.php'); // Redirect to login page
                 exit;
             }
         } else {
             $_SESSION['status'] = 'error';
             $_SESSION['msg'] = 'Sign In Failed. Please try again.';
-            header('Location: index.php'); // Redirect to login page
+            header('Location: login.php'); // Redirect to login page
             exit;
         }
     } else {
         $_SESSION['status'] = 'error';
         $_SESSION['msg'] = 'Please select a user role.';
-        header('Location: index.php'); // Redirect to login page
+        header('Location: login.php'); // Redirect to login page
         exit;
     }
 }

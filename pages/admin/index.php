@@ -3,121 +3,7 @@
 <?php include 'plugins/sidebar/admin_bar.php'; ?>
 
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <div class="content-header">
-    <div class="container-fluid">
-      <!-- <div class="row">
-        <div class="col-lg-3 col-6">
-          <input type="hidden" id="admin_name" value="<?= $_SESSION['name']; ?>">
-          <input type="hidden" id="admin_id" value="<?= $_SESSION['emp_id']; ?>">
-          <div class="small-box bg-info">
-            <div class="inner">
-              <?php
-              require '../../process/conn.php';
-              // $approver_id = $_SESSION['emp_id'];
 
-              $sql = "SELECT COUNT(*) as total FROM t_training_record WHERE checker_status = 'Pending'";
-              // $sql = "SELECT COUNT(*) as total FROM ( SELECT a.serial_no FROM t_training_record a RIGHT JOIN (SELECT serial_no, main_doc, sub_doc, file_name FROM t_upload_file) b ON a.serial_no = b.serial_no WHERE a.checker_status = 'pending' AND a.uploader_name = :uploader_name GROUP BY a.serial_no ) as grouped_records";
-              $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
-              $stmt->bindParam(':approver_id', $approver_id, PDO::PARAM_STR);
-              $stmt->execute();
-
-              if ($stmt->rowCount() > 0) {
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                foreach ($rows as $row) {
-                  echo '<h3>' . $row['total'] . '</h3>';
-                }
-              } else {
-                echo '<h3>0</h3>';
-              }
-              ?>
-
-              <p>Pending</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-clock"></i>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-6">
-          <div class="small-box bg-success">
-            <div class="inner">
-              <?php
-              require '../../process/conn.php';
-              // $approver_id = $_SESSION['emp_id'];
-
-              // $sql = "SELECT COUNT(serial_no) as total FROM t_training_record WHERE checker_status = 'Approved' AND uploader_name = :uploader_name";
-              // $sql = "SELECT COUNT(*) as total FROM ( SELECT a.serial_no FROM t_training_record a RIGHT JOIN (SELECT serial_no, main_doc, sub_doc, file_name FROM t_upload_file) b ON a.serial_no = b.serial_no WHERE a.checker_status = 'approved' AND a.uploader_name = :uploader_name GROUP BY a.serial_no ) as grouped_records";
-              $sql = "SELECT COUNT(*) as total FROM t_training_record WHERE approver_status = 'Approved' AND checker_status = 'Approved'";
-              $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
-              // $stmt->bindParam(':approver_id', $approver_id, PDO::PARAM_STR);
-              $stmt->execute();
-
-              if ($stmt->rowCount() > 0) {
-                // Output data of each row
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                // Output data of each row
-                foreach ($rows as $row) {
-                  echo '<h3>' . $row['total'] . '</h3>';
-                }
-              } else {
-                echo '<h3>No Record.</h3>';
-              }
-              ?>
-              <p>Approved</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-thumbs-up"></i>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-6">
-          <div class="small-box bg-danger">
-            <div class="inner">
-              <?php
-              require '../../process/conn.php';
-              $approver_id = $_SESSION['emp_id'];
-
-              $sql = "SELECT COUNT(*) as total FROM t_training_record WHERE approver_status = 'Disapproved' ";
-              // $sql = "SELECT COUNT(*) as total FROM ( SELECT a.serial_no FROM t_training_record a RIGHT JOIN (SELECT serial_no, main_doc, sub_doc, file_name FROM t_upload_file) b ON a.serial_no = b.serial_no WHERE a.checker_status = 'disapproved' AND a.uploader_name = :uploader_name GROUP BY a.serial_no ) as grouped_records";
-              $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
-              $stmt->bindParam(':approver_id', $approver_id, PDO::PARAM_STR);
-              $stmt->execute();
-
-              if ($stmt->rowCount() > 0) {
-                // Output data of each row
-                $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                // Output data of each row
-                foreach ($rows as $row) {
-                  echo '<h3>' . $row['total'] . '</h3>';
-                }
-              } else {
-                echo '<h3>No Record.</h3>';
-              }
-              ?>
-              <p>Disapproved</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-thumbs-down"></i>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- end of alert -->
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <!-- <h1 class="m-0">Tube Making Inventory</h1> -->
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <!-- /.content-header -->
-
-  <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -284,13 +170,28 @@
                               Refresh
                             </button>
                           </div>
+
+                          <!-- SHOW EXPORT BUTTON FOR IT ADMIN ONLY -->
+                          <?php
+                          if ($_SESSION['username'] == 'admin' && $_SESSION['role'] == 'admin') {
+                          ?>
+                            <div class="col-md-1 mb-2 ">
+                              <label for="">&nbsp;</label>
+                              <button class="form-control text-white" style="background-color: var(--danger);" onclick="export_csv('table_admin')">
+                                Export
+                              </button>
+                            </div>
+                          <?php
+
+                          }
+                          ?>
                         </div>
 
                       </div>
                     </div>
                   </div>
                   <div class="card-body table-responsive p-0" style="height: 620px;">
-                    <table class="table table-head-fixed text-nowrap table-hover" id="table">
+                    <table class="table table-head-fixed text-nowrap table-hover" id="table_admin">
                       <thead>
                         <tr>
                           <th>#</th>
