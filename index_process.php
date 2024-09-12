@@ -128,7 +128,7 @@ if ($method == 'load_data') {
 
 
         if (file_exists($file_path)) {
-            $data .= '<td style="cursor: pointer;"><a class="btn btn-info py-1" href="' . $file_path . '" target="_blank">View</a></td>';
+            $data .= '<td style="cursor: pointer;"><a class="btn btn-danger py-1" href="' . $file_path . '" target="_blank">View</a></td>';
         }
         $data .= '</tr>';
         $c++;
