@@ -1,6 +1,7 @@
 <script>
        document.addEventListener('DOMContentLoaded', function() {
-        
+        load_data();
+        counts();
     });
 
 
