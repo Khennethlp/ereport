@@ -233,9 +233,22 @@ if ($method == 'checker_table') {
             $data .= '<td>' . htmlspecialchars($k['uploader_name']) . '</td>';
             $data .= '<td>' . date('Y/m/d', strtotime($k['upload_date'])) . '</td>';
             $data .= '<td>' . htmlspecialchars($k['checked_by']) . '</td>';
-            $data .= '<td>' . htmlspecialchars($k['checked_date']) . '</td>';
+            
+             // if empty checked by, empty data, else display time format
+             if(empty($k['checked_by'])){
+                $data .= '<td></td>';
+            }else{
+                $data .= '<td>' . date('Y/m/d',strtotime($k['checked_date'])) . '</td>';
+            }
+
             $data .= '<td>' . htmlspecialchars($k['approved_by']) . '</td>';
-            $data .= '<td>' . htmlspecialchars($k['approved_date']) . '</td>';
+
+            // if empty approved by, empty data, else display time format
+            if(empty($k['approved_by'])){
+                $data .= '<td></td>';
+            }else{
+                $data .= '<td>' . date('Y/m/d' ,strtotime($k['approved_date'])) . '</td>';
+            }
             $data .= '</tr>';
             $c++;
         }

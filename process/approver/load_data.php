@@ -208,9 +208,19 @@ if ($method == 'approver_table') {
         $data .= '<td>' . htmlspecialchars($k['uploader_name']) . '</td>';
         $data .= '<td>' . date('Y/m/d', strtotime($k['upload_date'])) . '</td>';
         $data .= '<td>' . htmlspecialchars($k['checker_name']) . '</td>';
-        $data .= '<td>' . date('Y/m/d', strtotime($k['checked_date'])) . '</td>';
+
+        if (empty($k['checker_name'])) {
+            $data .= '<td></td>';
+        } else {
+            $data .= '<td>' . date('Y/m/d', strtotime($k['checked_date'])) . '</td>';
+        }
+
         $data .= '<td>' . htmlspecialchars($k['approver_name']) . '</td>';
-        $data .= '<td>' . date('Y/m/d', strtotime($k['approved_date'])) . '</td>';
+        if ($status_text == 'PENDING') {
+            $data .= '<td></td>';
+        } else {
+            $data .= '<td>' . date('Y/m/d', strtotime($k['approved_date'])) . '</td>';
+        }
         $data .= '</tr>';
         $c++;
     }
