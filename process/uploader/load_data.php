@@ -76,9 +76,6 @@ if ($method == 'load_data') {
         )";
     }
 
-    // if (!empty($date_from) && !empty($date_to)) {
-    //     $conditions[] = "a.upload_date BETWEEN :date_from AND :date_to";
-    // }
     if (!empty($year)) {
         $sql .= "a.upload_year = :year";
     }
@@ -160,6 +157,13 @@ if ($method == 'load_data') {
 
     $stmt->execute();
 
+    // get the isAllow from m_accounts
+    $sql = "SELECT * FROM m_accounts WHERE fullname = :fullname";
+    $acc = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
+    $acc->bindParam(':fullname', $uploader_name);
+    $acc->execute();
+    $user = $acc->fetch(PDO::FETCH_ASSOC);
+
     $c = $offset + 1;
     $data = '';
 
@@ -211,7 +215,11 @@ if ($method == 'load_data') {
             if ($status_text == 'APPROVED' || $status_text == 'DISAPPROVED' ) {
                 $data .= '<tr style="' . $status_bg_color . '">';
             }else{
-                $data .= '<tr style="' . $status_bg_color . ' cursor: pointer;" data-toggle="modal" data-target="#update_upload" onclick="getUpdateData(&quot;' . $k['id'] . '~!~' . $k['serial_no'] . '~!~' . $filenames . '~!~' . $status_text . '~!~' . $k['batch_no'] . '~!~' . $k['group_no'] . '~!~' . $k['upload_month'] . '~!~' . $k['upload_year'] . '~!~' . $k['main_doc'] . '~!~' . $k['training_group'] . '&quot;);">';
+                if(!empty($user['isAllow'])){
+                    $data .= '<tr style="' . $status_bg_color . ' cursor: pointer;" data-toggle="modal" data-target="#update_upload" onclick="getUpdateData(&quot;' . $k['id'] . '~!~' . $k['serial_no'] . '~!~' . $filenames . '~!~' . $status_text . '~!~' . $k['batch_no'] . '~!~' . $k['group_no'] . '~!~' . $k['upload_month'] . '~!~' . $k['upload_year'] . '~!~' . $k['main_doc'] . '~!~' . $k['training_group'] . '&quot;);">';
+                }else{
+                    $data .= '<tr style="' . $status_bg_color . '">';
+                }
             }
             $data .= '<td>' . $c . '</td>';
             // $data .= '<td><i class="fas fa-trash" style="color:var(--danger); font-size: 12px; cursor:pointer;"></i></td>';

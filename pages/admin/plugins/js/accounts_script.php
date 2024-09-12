@@ -54,7 +54,6 @@
                         Swal.fire({
                             icon: 'success',
                             title: 'Successfully Recorded!',
-                            // text: 'Success',
                             showConfirmButton: false,
                             timer: 1000
                         });
@@ -66,11 +65,25 @@
                         $('#add_password').val('');
                         $('#add_role').val('');
                         load_accounts();
-                    } else if (response == 'error') {
+                    } else if(response == 'exist'){
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Username already exist!',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                        $('#add_acc').modal('hide');
+                        $('#add_emp_id').val('');
+                        $('#add_fullname').val('');
+                        $('#add_email').val('');
+                        $('#add_username').val('');
+                        $('#add_password').val('');
+                        $('#add_role').val('');
+                        load_accounts();
+                    }else if (response == 'error') {
                         Swal.fire({
                             icon: 'error',
                             title: 'Unable to add new user. Please try again',
-                            // text: 'Success',
                             showConfirmButton: false,
                             timer: 1000
                         });
@@ -105,6 +118,7 @@
         // var email = data[4];
         var password = data[5];
         var role = data[6];
+        var isAllow = data[7];
 
         $('#id_acc').val(id);
         $('#empId_edit').val(emp_id);
@@ -113,6 +127,7 @@
         // $('#email_edit').val(email);
         $('#password_edit').val(password);
         $('#role_edit').val(role);
+        $('#allow_uploader').val(isAllow);
 
         console.log(param);
     }
@@ -125,6 +140,7 @@
         // var email = document.getElementById('email_edit').value;
         var password = document.getElementById('password_edit').value;
         var role = document.getElementById('role_edit').value;
+        var isAllow = document.getElementById('allow_uploader').value;
 
         if (!emp_id || !username || !fullname || !password || !role) {
             Swal.fire({
@@ -147,6 +163,7 @@
                     // email: email,
                     password: password,
                     role: role,
+                    isAllow: isAllow
                 },
                 success: function(response) {
                     console.log(response);

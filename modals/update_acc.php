@@ -44,6 +44,23 @@
                         </select>
                     </div>
                 </div>
+                <?php
+                if ($_SESSION['username'] == 'admin' && $_SESSION['role'] == 'admin') {
+                ?>
+                    <hr>
+                    <div class="row mt-3">
+                        <div class="col-md-4 mb-2">
+                            <label for="">Allow uploader to update?</label>
+                            <select id="allow_uploader" class="form-control">
+                                <option value=""></option>
+                                <option value="allow">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+
                 <br>
             </div>
             <div class="modal-footer ">

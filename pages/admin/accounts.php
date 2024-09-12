@@ -169,7 +169,13 @@
                                                     <th>Employee ID</th>
                                                     <th>Fullname</th>
                                                     <th>Username</th>
-                                                    <!-- <th>Email</th> -->
+                                                    <?php
+                                                    if ($_SESSION['username'] == 'admin' && $_SESSION['role'] == 'admin') {
+                                                        ?>
+                                                        <th>isAllow</th>
+                                                        <?php
+                                                    }
+                                                    ?>
                                                     <th>Role</th>
                                                 </tr>
                                             </thead>
