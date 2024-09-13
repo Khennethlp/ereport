@@ -42,7 +42,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Main Document</th>
+                                                    <th>Document</th>
                                                     <th>Sub Document</th>
                                                     <th></th>
                                                 </tr>

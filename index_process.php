@@ -117,14 +117,14 @@ if ($method == 'load_data') {
         $data .= '<td>' . htmlspecialchars($k['training_group']) . '</td>';
         $data .= '<td title="' . $k['file_name'] . '">' . (strlen($k['file_name']) > 45 ? substr($k['file_name'], 0, 45) . '...' : $k['file_name']) . '</td>';
         
-        // $data .= '<td>' . htmlspecialchars($k['checker_name']) . '</td>';
-        // if(empty($k['checker_name'])){
-        //     $data .= '<td></td>';
-        // }else{
-        //     $data .= '<td>' . date('Y/m/d', strtotime($k['checked_date'])) . '</td>';
-        // }
-        // $data .= '<td>' . htmlspecialchars($k['approver_name']) . '</td>';
-        // $data .= '<td>' . date('Y/m/d', strtotime($k['approved_date'])) . '</td>';
+        $data .= '<td>' . htmlspecialchars($k['checker_name']) . '</td>';
+        if(empty($k['checker_name'])){
+            $data .= '<td></td>';
+        }else{
+            $data .= '<td>' . date('Y/m/d', strtotime($k['checked_date'])) . '</td>';
+        }
+        $data .= '<td>' . htmlspecialchars($k['approver_name']) . '</td>';
+        $data .= '<td>' . date('Y/m/d', strtotime($k['approved_date'])) . '</td>';
 
 
         if (file_exists($file_path)) {

@@ -144,7 +144,7 @@ if ($method == 'load_data') {
 
 if ($method == 'load_docs') {
 
-    $sql = "SELECT * FROM m_report_title";
+    $sql = "SELECT * FROM m_report_title ORDER BY main_doc ASC";
     $stmt = $conn->prepare($sql);
 
     $c = 0;
@@ -213,7 +213,7 @@ if ($method == 'del_docs') {
 
 if ($method == 'load_trainings') {
 
-    $sql = "SELECT * FROM t_training_group";
+    $sql = "SELECT * FROM t_training_group ORDER BY training_title ASC";
     $stmt = $conn->prepare($sql);
 
     $c = 0;
