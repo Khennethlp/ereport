@@ -52,8 +52,8 @@
                         <div class="col-md-4 mb-2">
                             <label for="">Allow uploader to update?</label>
                             <select id="allow_uploader" class="form-control">
-                                <option value=""></option>
-                                <option value="allow">Yes</option>
+                                <option value="" selected>No</option>
+                                <option value="Yes">Yes</option>
                             </select>
                         </div>
                     </div>
