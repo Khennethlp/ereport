@@ -8,35 +8,39 @@ if ($method == 'load_accounts') {
 
     $search = isset($_POST['search']) ? $_POST['search'] : '';
 
-    $sql = "SELECT * FROM m_accounts WHERE secret_id != 'IT' ORDER BY role ASC ";
+    $sql = "SELECT * FROM m_accounts WHERE secret_id != 'IT'";  // No need for ORDER BY here yet
     if (!empty($search)) {
-        // Use placeholders and prepare statement for better security
-        $sql .= "AND (emp_id = :search OR fullname = :search OR email = :search OR username = :search)";
+        // Dynamically append the search condition
+        $sql .= " AND (emp_id LIKE :search OR fullname LIKE :search OR email LIKE :search OR username LIKE :search OR role LIKE :search)";
     }
-    
+
+    $sql .= " ORDER BY role ASC";  // Order by role at the end
+
     $stmt = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL));
-    
+
     if (!empty($search)) {
-        // Bind parameter for each placeholder
-        $stmt->bindParam(':search', $search, PDO::PARAM_STR);
+        // Add % wildcard to the search term before binding
+        $searchParam = "%" . $search . "%";
+        $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);  // Use without % in bindParam
     }
+
     $stmt->execute();
 
     $c = 0;
     if ($stmt->rowCount() > 0) {
         foreach ($stmt->fetchAll() as $k) {
             $c++;
-            echo '<tr style="cursor:pointer;" class="modal-trigger" data-toggle="modal" data-target="#update_account" onclick="get_accounts_details(&quot;' . $k['id'] . '~!~' . $k['emp_id'] . '~!~' . $k['username'] . '~!~' . $k['fullname'] . '~!~' . $k['email'] . '~!~' . $k['password'] . '~!~' . $k['role'] . '~!~' .$k['isAllow'].'&quot;)">';
+            echo '<tr style="cursor:pointer;" class="modal-trigger" data-toggle="modal" data-target="#update_account" onclick="get_accounts_details(&quot;' . $k['id'] . '~!~' . $k['emp_id'] . '~!~' . $k['username'] . '~!~' . $k['fullname'] . '~!~' . $k['email'] . '~!~' . $k['password'] . '~!~' . $k['role'] . '~!~' . $k['isAllow'] . '&quot;)">';
             echo '<td>' . $c . '</td>';
             echo '<td>' . $k['emp_id'] . '</td>';
             echo '<td>' . $k['fullname'] . '</td>';
             echo '<td>' . $k['username'] . '</td>';
-           
-            if($_SESSION['username'] == 'admin' && $_SESSION['role'] == 'admin'){
+
+            if ($_SESSION['username'] == 'admin' && $_SESSION['role'] == 'admin') {
                 echo '<td>' . $k['isAllow'] . '</td>';
             }
-                echo '<td>' . $k['role'] . '</td>';
-            
+            echo '<td>' . $k['role'] . '</td>';
+
             // echo '<td>' .  date('Y/M/d', strtotime($k['created_at'])) . '</td>';
             echo '</tr>';
         }
@@ -62,22 +66,20 @@ if ($method == 'add_accounts') {
     $check_stmt->execute();
     $username_exists = $check_stmt->fetchColumn();
 
-    if($username_exists > 0){
+    if ($username_exists > 0) {
         echo 'exist';
-    }else{
+    } else {
 
         $sql = "INSERT INTO m_accounts (emp_id, fullname, username, password, role)
         VALUES ('$emp_id', '$fullname', '$username', '$password', '$role')";
         $stmt = $conn->prepare($sql);
-        
+
         if ($stmt->execute()) {
             echo 'success';
         } else {
             echo 'error';
         }
     }
-
-
 }
 
 if ($method == 'edit_account') {
