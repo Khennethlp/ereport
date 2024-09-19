@@ -158,6 +158,13 @@
                           </div>
                           <div class="col-md-3 mb-2 ml-auto">
                             <label for="">&nbsp;</label>
+                            <button class="form-control active" data-target="#timeout" data-toggle="modal">
+                              <i class="fas fa-search"></i>&nbsp;
+                              modal
+                            </button>
+                          </div>
+                          <div class="col-md-3 mb-2 ml-auto">
+                            <label for="">&nbsp;</label>
                             <button class="form-control active" onclick="load_data();">
                               <i class="fas fa-search"></i>&nbsp;
                               Search

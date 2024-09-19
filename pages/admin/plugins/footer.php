@@ -16,6 +16,7 @@
 <?php
 //MODALS
 include '../../modals/logout_modal.php';
+include '../../modals/timeout.php';
 include '../../modals/add_accounts.php';
 include '../../modals/update_acc.php';
 include '../../modals/add_docs.php';
@@ -25,8 +26,8 @@ include '../../modals/update_docs.php';
 include '../../modals/update_training.php';
 include '../../modals/update_admin.php';
 
-
 ?>
+
 <!-- <script src="plugins/js/custom.js"></script> -->
 <!-- jQuery -->
 <script src="../../plugins/jquery/dist/jquery.min.js"></script>
@@ -46,6 +47,7 @@ include '../../modals/update_admin.php';
 <script src="../../dist/js/adminlte.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/popup_center.js"></script>
+<script src="../../dist/js/session.js"></script>
 
 
 </body>

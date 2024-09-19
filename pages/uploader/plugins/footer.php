@@ -22,6 +22,7 @@ include '../../modals/upload_data.php';
 include '../../modals/update_uploads.php';
 include '../../modals/problem_modal.php';
 include '../../modals/delete_pending.php';
+include '../../modals/timeout.php';
 ?>
 
 <script>
@@ -56,6 +57,7 @@ include '../../modals/delete_pending.php';
 <!-- AdminLTE App -->
 <script src="../../dist/js/popup_center.js"></script>
 <script src="plugins/js/handle_files.js"></script>
+<script src="../../dist/js/session.js"></script>
 
 </body>
 </html>

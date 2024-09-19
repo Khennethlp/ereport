@@ -18,6 +18,7 @@
 //MODALS
 include '../../modals/logout_modal.php';
 include '../../modals/approver_modal.php';
+include '../../modals/timeout.php';
 ?>
 <!-- jQuery -->
 <script src="../../plugins/jquery/dist/jquery.min.js"></script>
@@ -35,7 +36,7 @@ include '../../modals/approver_modal.php';
 <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.js"></script>
-<!-- <script src="plugins/js/custom.js"></script> -->
+<script src="../../dist/js/session.js"></script>
 
 </body>
 </html>
