@@ -3,7 +3,6 @@
 <?php include 'plugins/sidebar/admin_bar.php'; ?>
 
 <div class="content-wrapper">
-
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -158,13 +157,6 @@
                           </div>
                           <div class="col-md-3 mb-2 ml-auto">
                             <label for="">&nbsp;</label>
-                            <button class="form-control active" data-target="#timeout" data-toggle="modal">
-                              <i class="fas fa-search"></i>&nbsp;
-                              modal
-                            </button>
-                          </div>
-                          <div class="col-md-3 mb-2 ml-auto">
-                            <label for="">&nbsp;</label>
                             <button class="form-control active" onclick="load_data();">
                               <i class="fas fa-search"></i>&nbsp;
                               Search
@@ -217,7 +209,7 @@
                           <th>Action</th>
                         </tr>
                       </thead>
-                      <tbody id="admin_dashboard_table"> </tbody>
+                      <tbody id="admin_dashboard_table"></tbody>
                     </table>
                     <div id="load_more" class="text-center" style="display: none;">
                       <p class="badge badge-dark border border-outline px-3 py-2 mt-3 " style="cursor: pointer;">Load More...</p>
