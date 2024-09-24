@@ -83,9 +83,7 @@
                         // timer: 1000
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.close();
-                            history.back();
-
+                            location.replace('/e-report/pages/approver/index.php');
                         }
                     });
 

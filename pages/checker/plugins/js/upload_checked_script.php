@@ -102,8 +102,7 @@
                         confirmButtonText: "Ok"
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.close();
-                            history.back();
+                            location.replace('/e-report/pages/checker/index.php');
                         }
                     });
 
