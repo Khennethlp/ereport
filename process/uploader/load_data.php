@@ -234,7 +234,7 @@ if ($method == 'load_data') {
 
             if ($status_text == 'DISAPPROVED') {
                 if ($file_path) {
-                    $data .= '<td><a class="text-warning" href="../../pages/uploader/file_view.php?id=' . $id . '&serial_no=' . $serial_no . '&training_group=' . $tgroup . '&file_path=' . $file_path . '&uploader=' . $uploader_id . '" target="_blank">' . $filename . '</a></td>';
+                    $data .= '<td><a class="text-warning" href="../../pages/uploader/file_view.php?id=' . $id . '&serial_no=' . $serial_no . '&training_group=' . $tgroup . '&file_path=' . $file_path . '&uploader=' . $uploader_id . '" >' . $filename . '</a></td>';
                 } else {
                     $data .= '<td>File not found</td>';
                 }

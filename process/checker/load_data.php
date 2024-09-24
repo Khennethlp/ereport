@@ -224,7 +224,7 @@ if ($method == 'checker_table') {
                     // $data .= '<td>' . htmlspecialchars($k['file_name']) . '</td>';
                     $data .= '<td title="' . $k['file_name'] . '">' . (strlen($k['file_name']) > 50 ? substr($k['file_name'], 0, 50) . '...' : $k['file_name']) . '</td>';
                 } else {
-                    $data .= '<td><a href="../../pages/checker/file_view.php?id=' . $id . '&serial_no=' . $serial_no . '&file_path=' . $file_path . '&checker=' . htmlspecialchars($c_id) . '" target="_blank">' . $k['file_name'] . '</a></td>';
+                    $data .= '<td><a href="../../pages/checker/file_view.php?id=' . $id . '&serial_no=' . $serial_no . '&file_path=' . $file_path . '&checker=' . htmlspecialchars($c_id) . '" >' . $k['file_name'] . '</a></td>';
                 }
             } else {
                 $data .= '<td>File not found</td>';

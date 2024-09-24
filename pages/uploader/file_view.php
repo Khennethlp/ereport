@@ -348,7 +348,7 @@ $file_extension = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
                                         Submit</button>
                                 </div>
                                 <div class="col-md-3">
-                                    <button class="form-control btn_close" onclick="window.close(); history.back();">
+                                    <button class="form-control btn_close" onclick="location.replace('/e-report/pages/uploader/index.php');">
                                         <i class="fas fa-sign-out-alt "></i>
                                         Close
                                     </button>

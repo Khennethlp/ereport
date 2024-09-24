@@ -199,7 +199,7 @@ if ($method == 'approver_table') {
             if ($status == 'approved' || $status == 'disapproved') {
                 $data .= '<td title="' . $k['filenames'] . '">' . (strlen($k['filenames']) > 50 ? substr($k['filenames'], 0, 50) . '...' : $k['filenames']) . '</td>';
             } else {
-                $data .= '<td><a href="../../pages/approver/file_view.php?id=' . $id . '&serial_no=' . $serial_no . '&file_path=' . $file_path . '&approver=' . htmlspecialchars($a_id) . '" target="_blank">' . htmlspecialchars($k['filenames']) . '</a></td>';
+                $data .= '<td><a href="../../pages/approver/file_view.php?id=' . $id . '&serial_no=' . $serial_no . '&file_path=' . $file_path . '&approver=' . htmlspecialchars($a_id) . '" >' . htmlspecialchars($k['filenames']) . '</a></td>';
             }
         } else {
             $data .= '<td>File not found</td>';
