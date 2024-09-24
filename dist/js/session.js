@@ -1,4 +1,4 @@
-const sessionInactivityLimit = 10 * 60 * 1000; // 1 minute in milliseconds
+const sessionInactivityLimit = 10 * 60 * 1000;
 let sessionInactivityTimer;
 
 // Function to reset the inactivity timer
