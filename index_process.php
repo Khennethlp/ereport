@@ -105,6 +105,7 @@ if ($method == 'load_data') {
             $file_path .= htmlspecialchars($k['sub_doc']) . '/';
         }
         $file_path .= $k['file_name'];
+        $file_extension = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
 
         $data .= '<tr>';
         $data .= '<td>' . $c . '</td>';
@@ -128,8 +129,13 @@ if ($method == 'load_data') {
 
 
         if (file_exists($file_path)) {
-            $data .= '<td style="cursor: pointer;"><a class="btn btn-danger py-1" href="' . $file_path . '" target="_blank">View</a></td>';
+            if($file_extension == 'pdf'){
+                $data .= '<td style="cursor: pointer;"><a class="btn btn-danger py-1" href="' . $file_path . '" target="_blank">View</a></td>';
+            }else{
+                $data .= '<td style="cursor: pointer;"><a class="btn btn-danger py-1" href="' . $file_path . '" target="_blank"><i class="fas fa-download"></i>&nbsp;Download</a></td>';
+            }
         }
+        
         $data .= '</tr>';
         $c++;
     }
