@@ -161,10 +161,10 @@
                             </div>
 
                             <!-- FOR WORK INSTRUCTION -->
-                            <!-- <div class="col-md-2 mb-2">
+                            <div class="col-md-2 mb-2">
                                 <label for="">&nbsp;</label>
-                                <a href="" class="form-control bg-danger text-center"><i class="fas fa-download"></i>&nbsp; Work Instruction</a>
-                            </div> -->
+                                <a href="work-i/ereport-work-i.pdf" target="_blank" title="View work instruction" class="form-control bg-danger text-center"><i class="fas fa-download"></i>&nbsp; Work Instruction</a>
+                            </div>
                         </div>
                         <br>
                         <div class="col-12">
