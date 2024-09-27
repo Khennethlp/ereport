@@ -28,8 +28,8 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="">Group No.</label>
-                                    <!-- <input type="text" class="form-control" id="group_no"> -->
-                                    <input type="text" list="group_no" class=" form-control" placeholder="">
+                                    <input type="text" class="form-control" id="group_no">
+                                    <!-- <input type="text" list="group_no" class=" form-control" placeholder="">
                                     <datalist id="group_no">
                                         <?php
                                         require '../../process/conn.php';
@@ -50,7 +50,7 @@
                                             echo '<option value="">No data available</option>';
                                         }
                                         ?>
-                                    </datalist>
+                                    </datalist> -->
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="">Month:</label>
