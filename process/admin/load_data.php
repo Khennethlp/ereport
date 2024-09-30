@@ -224,7 +224,7 @@ if ($method == 'load_trainings') {
             echo '<tr >';
             echo '<td>' . $c . '</td>';
             echo '<td>' . $k['training_title'] . '</td>';
-            echo '<td style="cursor: pointer;" data-toggle="modal" data-target="#update_training" onclick="get_train(&quot;' . $k['id'] . '~!~' . $k['training_title'] . ' &quot;)"><i class="fas fa-ellipsis-h"></i></td>';
+            echo '<td style="cursor: pointer;" data-toggle="modal" data-target="#update_training" onclick="get_train(&quot;' . $k['id'] . '~!~' . $k['training_title'] . '&quot;)"><i class="fas fa-ellipsis-h"></i></td>';
             echo '</tr>';
         }
     }
