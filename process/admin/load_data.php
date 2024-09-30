@@ -156,7 +156,7 @@ if ($method == 'load_docs') {
             echo '<td>' . $c . '</td>';
             echo '<td>' . $k['main_doc'] . '</td>';
             echo '<td>' . $k['sub_doc'] . '</td>';
-            echo '<td style="cursor: pointer;" data-toggle="modal" data-target="#update_docs" onclick="get_docs(&quot;' . $k['id'] . '~!~' . $k['main_doc'] . '~!~' . $k['sub_doc'] . ' &quot;)"><i class="fas fa-ellipsis-h"></i></td>';
+            echo '<td style="cursor: pointer;" data-toggle="modal" data-target="#update_docs" onclick="get_docs(&quot;' . $k['id'] . '~!~' . $k['main_doc'] . '~!~' . $k['sub_doc'] . '&quot;)"><i class="fas fa-ellipsis-h"></i></td>';
             echo '</tr>';
         }
     }
