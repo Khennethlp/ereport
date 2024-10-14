@@ -228,7 +228,7 @@
       if (result.isConfirmed) {
         $.ajax({
           type: "POST",
-          url: "../../process/superAdmin/load_data.php",
+          url: "../../process/admin/load_data.php",
           data: {
             method: 'remove_data',
             id: id,

@@ -327,3 +327,25 @@ if ($method == 'update_admin') {
     }
     
 }
+
+if ($method == 'remove_data') {
+    $id = $_POST['id'];
+    $serialNo = $_POST['serialNo'];
+
+    try {
+        $del_training_record = "DELETE FROM t_training_record WHERE id = '$id' AND serial_no = '$serialNo' ";
+        $stmt = $conn->prepare($del_training_record);
+
+        if ($stmt->execute()) {
+            $del_upload_file = "DELETE FROM t_upload_file WHERE id = '$id' AND serial_no = '$serialNo' ";
+            $stmt = $conn->prepare($del_upload_file);
+            $stmt->execute();
+
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+    } catch (PDOException $e) {
+        echo 'error: ' . $e->getMessage();
+    }
+}

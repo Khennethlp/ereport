@@ -150,7 +150,7 @@
                           <input type="hidden" name="approver_id" id="approver_id" value="<?php echo $_SESSION['emp_id']; ?>">
                           <div class="col-md-3 mb-2">
                             <label for="">Status:</label>
-                            <select name="status" id="approver_status" class="form-control bg-cyan">
+                            <select name="status" id="approver_status" class="form-control btn" style="background:#275DAD; color:#ffff;">
                               <!-- <option value="">--All--</option> -->
                               <option value="pending">PENDING</option>
                               <option value="approved">APPROVED</option>
