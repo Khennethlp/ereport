@@ -2,7 +2,7 @@
   <!-- Brand Logo -->
   <a href="index.php" class="brand-link" style="background-color: #306BAC; color: #fff;">
     <img src="../../dist/img/e-report-icon.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light text-uppercase">&ensp; <?=$title;?></span>
+    <span class="brand-text font-weight-light text-uppercase">&ensp; <?= $title; ?></span>
   </a>
 
   <!-- Sidebar -->
@@ -42,7 +42,7 @@
               <?php } ?>
               <i class="nav-icon fas fa-list-ul"></i>
               <p>
-               Document Masterlist
+                Document Masterlist
               </p>
               </a>
         </li>
@@ -58,19 +58,25 @@
               </p>
               </a>
         </li>
-       
-        <!-- <li class="nav-item">
-          <?php if ($_SERVER['REQUEST_URI'] == "/e-report/pages/admin/page4.php") { ?>
-            <a href="page4.php" class="nav-link active">
+        <?php
+        if ($_SESSION['role'] == 'admin' && $_SESSION['username'] == 'admin') {
+        ?>
+          <li class="nav-item">
+           <?php if ($_SERVER['REQUEST_URI'] == "/e-report/pages/admin/backup.php") { ?>
+            <a href="backup.php" class="nav-link active">
             <?php } else { ?>
-              <a href="page4.php" class="nav-link">
+              <a href="backup.php" class="nav-link">
               <?php } ?>
               <i class="nav-icon fas fa-anchor"></i>
               <p>
-              Title Page 4
+              Backup
               </p>
               </a>
-        </li> -->
+        </li>
+        <?php
+        }
+        ?>
+
         <!-- <li class="nav-item">
           <?php if ($_SERVER['REQUEST_URI'] == "/e-report/pages/admin/page5.php") { ?>
             <a href="page5.php" class="nav-link active">
