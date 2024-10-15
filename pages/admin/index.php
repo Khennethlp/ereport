@@ -175,7 +175,8 @@
                           ?>
                             <div class="col-md-1 mb-2 ">
                               <label for="">&nbsp;</label>
-                              <button class="form-control text-white" style="background-color: var(--danger);" onclick="export_csv('table_admin')">
+                              <!-- <button class="form-control text-white" style="background-color: var(--danger);" onclick="export_csv('table_admin')"> -->
+                              <button class="form-control text-white" style="background-color: var(--danger);" onclick="export_records();">
                                 Export
                               </button>
                             </div>
