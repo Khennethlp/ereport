@@ -46,6 +46,7 @@
                                 showConfirmButton: false,
                                 timer: 3000
                             });
+                            load_backup();
                         } else if (response == 'failed') {
                             Swal.fire({
                                 icon: 'warning',
@@ -53,6 +54,7 @@
                                 showConfirmButton: false,
                                 timer: 3000
                             });
+                            load_backup();
                         }else{
                             Swal.fire({
                                 icon: 'error',

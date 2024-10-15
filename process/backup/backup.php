@@ -17,7 +17,7 @@ try {
         $backupFile = 'E-Report_' . date('Y-m-d') . '.sql';
 
         // Path to the save folder
-        $filepath = __DIR__ . '/../../../DB Backup/E-REPORT/';
+        $filepath = __DIR__ . '/../../DB Backup/E-REPORT/';
 
         // Check if the folder exists, if not, create it
         if (!is_dir($filepath)) {
