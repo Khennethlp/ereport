@@ -12,15 +12,15 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <input type="hidden" id="user_name" class="form-control" value="<?= $_SESSION['name']; ?>">
-                                    <div class="col-md-3">
+                                    <!-- <div class="col-md-3">
                                         <label for="">Date From:</label>
                                         <input type="date" name="" id="backup_date_from" class="form-control">
                                     </div>
                                     <div class="col-md-3">
                                         <label for="">Date To:</label>
                                         <input type="date" name="" id="backup_date_to" class="form-control">
-                                    </div>
-                                    <div class="col-md-3">
+                                    </div> -->
+                                    <div class="col-md-2 ml-auto">
                                         <label for="">&nbsp;</label>
                                         <button class="form-control" style="background-color: #275DAD; color: #fff;" onclick="backup();">Backup</button>
                                     </div>
@@ -36,7 +36,7 @@
                                 <div class="card" style="border-radius: 15px; max-height: 550px; overflow-y:auto;">
                                     <table class="table table-condensed table-hover">
                                         <thead>
-                                            <th>Backup Date Range</th>
+                                            <!-- <th>Backup Date Range</th> -->
                                             <th>Backup Date</th>
                                             <th>Initiator</th>
                                         </thead>

@@ -1,51 +1,64 @@
 <?php
 include '../../process/conn.php'; // This already includes your database connection settings
 
-// Get data from the form
-$initiator = $_POST['initiator'];
-// $date_from = $_POST['date_from'];
-// $date_to = $_POST['date_to'];
+try {
+    // Get data from the form
+    $initiator = $_POST['initiator'];
 
-// Insert backup details into db_backup table
-$sql = "INSERT INTO db_backup (initiator) VALUES ('$initiator')";
-$stmt = $conn->prepare($sql);
-$stmt->execute();
+    // Prepare and bind parameters securely
+    $sql = "INSERT INTO db_backup (initiator) VALUES (:initiator)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':initiator', $initiator, PDO::PARAM_STR);
+    $stmt->execute();
 
-if($stmt){
+    // Check if insertion was successful
+    if ($stmt) {
+        // Define the backup file name
+        $backupFile = 'E-Report_' . date('Y-m-d') . '.sql';
 
-    // Define the backup file name
-    $backupFile = 'E-Report' . '_' . date('Y-m-d_H-i-s') . '.sql';
+        // Path to the save folder
+        $filepath = __DIR__ . '/../../../DB Backup/E-REPORT/';
 
-    // Path to the save folder
-    $filepath = __DIR__ . '/../../../DB Backup/E-REPORT/';
+        // Check if the folder exists, if not, create it
+        if (!is_dir($filepath)) {
+            if (!mkdir($filepath, 0777, true)) {
+                throw new Exception("Failed to create directory: $filepath");
+            }
+        }
 
-    // Check if the folder exists, if not, create it
-    if (!is_dir($filepath)) {
-        mkdir($filepath, 0777, true);
-    }
+        // Full path to the backup file
+        $fullBackupPath = $filepath . $backupFile;
 
-    // Full path to the backup file
-    $fullBackupPath = $filepath . $backupFile;
+        // Fetch credentials from the existing connection
+        $host = $servername; // Use $servername from your conn.php
+        $db_username = $username; // Use $username from your conn.php
+        $db_password = $password; // Use $password from your conn.php
+        $database = 'e-report'; // Your database name from conn.php
 
-    // Fetch credentials from the existing connection
-    $host = $servername; // Use $servername from your conn.php
-    $db_username = $username; // Use $username from your conn.php
-    $db_password = $password; // Use $password from your conn.php
-    $database = 'e-report'; // Your database name from conn.php
+        // Path to mysqldump in XAMPP
+        $mysqldumpPath = 'C:/xampp/mysql/bin/mysqldump.exe'; // Adjust if needed
 
-    // Create mysqldump command
-    $command = "mysqldump --host=$host --user=$db_username --password=$db_password $database > $fullBackupPath";
+        // Create mysqldump command
+        $command = "\"$mysqldumpPath\" --host=$host --user=$db_username --password=$db_password $database > \"$fullBackupPath\"";
 
-    // Execute the command to create the backup
-    system($command, $output);
+        // Use exec to capture output
+        $output = [];
+        $return_var = null;
+        exec($command . ' 2>&1', $output, $return_var);
 
-    // Check if the backup was successful
-    if ($output === 0) {
-        echo "success";
+        // Check if the backup was successful (exit status 0 indicates success)
+        if ($return_var === 0) {
+            echo 'success';
+            // echo "Backup created successfully: $fullBackupPath";
+        } else {
+            echo 'failed';
+            // echo "Failed to create backup. Error code: $return_var\n";
+            // echo "Command output: " . implode("\n", $output); // Output the errors for debugging
+        }
     } else {
-        echo "failed";
+        throw new Exception("Unable to insert backup details into the database.");
     }
-} else {
-    echo "Error: Unable to insert backup details into the database.";
+} catch (Exception $e) {
+    echo 'error';
+    // echo "Error: " . $e->getMessage();
 }
-?>

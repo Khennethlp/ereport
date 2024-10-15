@@ -1,7 +1,18 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-
+        load_backup();
     });
+
+    const load_backup = () => {
+        $.ajax({
+            type: "POST",
+            url: "../../process/backup/load_backup.php",
+            // data: "data",
+            success: function (response) {
+                $('#backup_table').html(response);
+            }
+        });
+    }
 
     const backup = () => {
         var initiator = document.getElementById('user_name').value;
@@ -17,39 +28,42 @@
             cancelButtonColor: "#d33",
             confirmButtonText: "Lets Go!"
         }).then((result) => {
-            $.ajax({
-                type: "POST",
-                url: "../../process/backup/backup.php",
-                data: {
-                    initiator: initiator,
-                    // date_from: date_from,
-                    // date_to: date_to
-                },
-                success: function(response) {
-                    if (response == 'success') {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            showConfirmButton: false,
-                            timer: 3000
-                        });
-                    } else if (response == 'failed') {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: 'Failed to backup.',
-                            showConfirmButton: false,
-                            timer: 3000
-                        });
-                    }else{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Something went wrong.',
-                            showConfirmButton: false,
-                            timer: 3000
-                        });
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "../../process/backup/backup.php",
+                    data: {
+                        initiator: initiator,
+                        // date_from: date_from,
+                        // date_to: date_to
+                    },
+                    success: function(response) {
+                        if (response == 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                        } else if (response == 'failed') {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Failed to backup.',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Something went wrong.',
+                                showConfirmButton: false,
+                                timer: 3000
+                            });
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     }
 </script>
