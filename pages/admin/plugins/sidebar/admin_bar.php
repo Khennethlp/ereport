@@ -67,7 +67,7 @@
             <?php } else { ?>
               <a href="backup.php" class="nav-link">
               <?php } ?>
-              <i class="nav-icon fas fa-anchor"></i>
+              <i class="nav-icon fas fa-database"></i>
               <p>
               Backup
               </p>

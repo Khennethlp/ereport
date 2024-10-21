@@ -9,7 +9,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($rows as $k) {
     echo '<tr>';
-    echo '<td>' . htmlspecialchars($k['initiator']) . '</td>';
     echo '<td>' . date('Y/m/d', strtotime($k['backup_at'])) . '</td>';
+    echo '<td>' . htmlspecialchars($k['initiator']) . '</td>';
     echo '</tr>';
 }
